@@ -24,8 +24,6 @@ public class Episodio {
         }catch (DateTimeParseException e){
             this.dataLancamento = null;
         }
-
-
     }
 
 

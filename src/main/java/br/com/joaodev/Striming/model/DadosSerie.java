@@ -12,5 +12,8 @@ public record DadosSerie(@JsonAlias("Title") String titulo,
                          @JsonAlias ("Runtime") String duracao,
                          @JsonAlias ("Genre") String genero,
                          @JsonAlias ("totalSeasons") Integer totalDeTemporadas,
-                         @JsonAlias ("imdbRating") String avaliacao) {
+                         @JsonAlias ("imdbRating") String avaliacao,
+                         @JsonAlias("Plot") String sinopse,
+                         @JsonAlias("Actors") String atores,
+                         @JsonAlias("Poster") String poster) {
 }
