@@ -13,6 +13,7 @@ O projeto foi desenvolvido com as seguintes tecnologias:
 - ![Jackson](https://img.shields.io/badge/Jackson-2F2F2F?style=for-the-badge) **Biblioteca para conversão de JSON.**
 - ![ChatGPT API](https://img.shields.io/badge/ChatGPT-412991?style=for-the-badge&logo=openai&logoColor=white) **IA resposnsavel por traduzir as sinopse**
 - ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white) **Banco de Dados resposavel por guarda pesquisas anteriores**
+- ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellij-idea&logoColor=white) **IDE utilizada para o desenvolvimento**
 
 ## Requisitos para Execução
 
