@@ -142,6 +142,7 @@ public class Main {
                     1 - Buscar séries
                     2 - Buscar episódios
                     3 - Listar series ja buscadas
+                    4 - Buscar serie por titulos
                     
                     0 - Sair                                 
                     """;
@@ -160,6 +161,9 @@ public class Main {
                     break;
                 case 3:
                     listarSeriesBuscadas();
+                    break;
+                case 4:
+                    buscarSeriePorTitulo();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -221,5 +225,19 @@ public class Main {
         series.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))
                 .forEach(System.out::println);
+    }
+
+    private void buscarSeriePorTitulo() {
+        System.out.println("Escolha a serie pelo nome: ");
+        var nomeSerie = leitura.nextLine();
+        //Criando optional para falar que vamos vamos buscar uma serie e pode ser que encontre ou não.
+        //repositori usando o metodo que criado na interface, passando oque foi digitado pelo usuario
+        Optional<Serie> serieBuscada = repositorio.findByTituloContainingIgnoreCase(nomeSerie);
+
+        if (serieBuscada.isPresent()){
+            System.out.println("Dados da serie: "+serieBuscada.get());
+        }else {
+            System.out.println("Serie não encontrada!");
+        }
     }
 }
