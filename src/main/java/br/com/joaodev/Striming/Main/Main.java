@@ -142,8 +142,10 @@ public class Main {
                     1 - Buscar séries
                     2 - Buscar episódios
                     3 - Listar series ja buscadas
-                    4 - Buscar serie por titulos
-                    
+                    4 - Buscar serie por títulos
+                    5 - Buscar series por ator
+                    6 - Buscar top 5 melhores series  
+                                        
                     0 - Sair                                 
                     """;
 
@@ -164,6 +166,12 @@ public class Main {
                     break;
                 case 4:
                     buscarSeriePorTitulo();
+                    break;
+                case 5:
+                    buscarSeriePorAtor();
+                    break;
+                case 6:
+                    listarTopSeriesMaisBemAvaliadas();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -238,5 +246,30 @@ public class Main {
         }else {
             System.out.println("Serie não encontrada!");
         }
+    }
+
+    private void buscarSeriePorAtor() {
+        System.out.println("Digite o nome do ator que deseja buscar: ");
+        var nomeAtor = leitura.nextLine();
+        System.out.println("Avaliações apartir de que valor: ");
+        var avaliacao = leitura.nextDouble();
+        List<Serie> seriesEncontrdas = repositorio.findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(nomeAtor,avaliacao);
+        System.out.println("Series em que "+nomeAtor+" trabalhou.");
+        //Passando pela lista e mandando imprimir somente o nome da série e a avaliação.
+        seriesEncontrdas.forEach(s ->
+                System.out.println(s.getTitulo()+" avaliação: "+s.getAvaliacao()));
+    }
+
+    private void listarTopSeriesMaisBemAvaliadas() {
+        // Puxa todas as séries do banco
+        series = repositorio.findAll();
+
+        series.stream()
+                // Ordena por avaliação (maior primeiro)
+                .sorted(Comparator.comparing(Serie::getAvaliacao).reversed())
+                // Pega apenas os primeiros 3 resultados
+                .limit(3)
+                // Passando pela lista e imprimindo
+                .forEach(s -> System.out.println(s.getTitulo()+" avaliação: "+s.getAvaliacao()));
     }
 }
