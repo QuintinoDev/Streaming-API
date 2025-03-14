@@ -1,5 +1,6 @@
 package br.com.joaodev.Striming.repository;
 
+import br.com.joaodev.Striming.model.Categoria;
 import br.com.joaodev.Striming.model.Serie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,6 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
     //Metodo criado para pesquisa de atores e gerar lista com series onde eles participam
     //AndavaliacaoGreaterThanEqual parametro para falar que queremos mostrar somente aquelas series que são melhores avaliadas
     List<Serie> findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(String nomeAtor, Double avaliacao);
+
+    List<Serie> findByGenero(Categoria categoria);
 }

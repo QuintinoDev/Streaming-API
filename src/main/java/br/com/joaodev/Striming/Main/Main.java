@@ -144,7 +144,8 @@ public class Main {
                     3 - Listar series ja buscadas
                     4 - Buscar serie por títulos
                     5 - Buscar series por ator
-                    6 - Buscar top 5 melhores series  
+                    6 - Buscar top 5 melhores series
+                    7 - Series por categoria  
                                         
                     0 - Sair                                 
                     """;
@@ -173,6 +174,9 @@ public class Main {
                 case 6:
                     listarTopSeriesMaisBemAvaliadas();
                     break;
+                case 7:
+                    buscarSeriePorCategoria();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -181,6 +185,7 @@ public class Main {
             }
         }
     }
+
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
@@ -271,5 +276,14 @@ public class Main {
                 .limit(3)
                 // Passando pela lista e imprimindo
                 .forEach(s -> System.out.println(s.getTitulo()+" avaliação: "+s.getAvaliacao()));
+    }
+
+    private void buscarSeriePorCategoria() {
+        System.out.println("Digite a categoria desejada: ");
+        var nomeCategoria = leitura.nextLine();
+        Categoria categoria = Categoria.fromPortugues(nomeCategoria);
+        List<Serie> seriePorCategoria = repositorio.findByGenero(categoria);
+        System.out.println("Series da categoria "+categoria);
+        seriePorCategoria.forEach(System.out::println);
     }
 }
