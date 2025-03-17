@@ -1,6 +1,7 @@
 package br.com.joaodev.Striming.repository;
 
 import br.com.joaodev.Striming.model.Categoria;
+import br.com.joaodev.Striming.model.Episodio;
 import br.com.joaodev.Striming.model.Serie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,14 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
     //Chamando cada coisa que queremos de dentro da nossa classe
     @Query("select s from Serie s WHERE s.totalDeTemporadas <= :maxTemporadas AND s.avaliacao >= :avaliacao")
     List<Serie> seriesPorTempordasEAvaliacao(Integer maxTemporadas, Double avaliacao);
+
+    //Buscando episodios por trecho de nomes
+    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE e.titulo ILIKE %:trechoEpisodio%")
+    List<Episodio> episodiosPortrecho(String trechoEpisodio);
+
+    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie ORDER BY e.avaliacao DESC LIMIT 5")
+    List<Episodio> topEpisodiosPorSerie(Serie serie);
+
+    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie AND YEAR(e.dataLancamento) >= :anoLancamento")
+    List<Episodio> episodisoPorSerieEAno(Serie serie, int anoLeitura);
 }
