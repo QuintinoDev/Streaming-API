@@ -20,6 +20,7 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
     List<Serie> findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(String nomeAtor, Double avaliacao);
     //feito para buscar o genero que eu quero e mes mostras quais series estão salvas com aquele genero no meu banco
     List<Serie> findByGenero(Categoria categoria);
+    List<Serie> findTop5ByOrderByAvaliacaoDesc();
     //Pegando total de temporadas e mostrando somente quem tem aquele quando ou mais, e pegando as avaliações e mostrando quem tem aquela quantidade ou mais
     List<Serie> findBytotalDeTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(Integer maxTemporadas, Double avaliacao);
     //Faz a mesma coisa do de cima mas aq estamos usando JPQL que fica um pouco mais claro oque estamos fazendo, quase mesmo codigo usado para pesquisa no propio banco
@@ -37,4 +38,15 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
     @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie AND YEAR(e.dataLancamento) >= :anoLancamento")
     List<Episodio> episodisoPorSerieEAno(Serie serie, int anoLeitura);
+
+    List<Serie> findTop5ByOrderByEpisodiosDataLancamentoDesc();
+
+    @Query("SELECT s FROM Serie s " +
+            "JOIN s.episodios e " +
+            "GROUP BY s " +
+            "ORDER BY MAX(e.dataLancamento) DESC LIMIT 5")
+    List<Serie> lancamentosMaisRecentes();
+
+    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s.id = :id AND e.temporada = :numero")
+    List<Episodio> obterEpisodiosPorTemporadas(Long id, Long numero);
 }
